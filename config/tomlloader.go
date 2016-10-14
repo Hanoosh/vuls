@@ -108,6 +108,20 @@ func (c TOMLLoader) Load(pathToToml, keyPass string) (err error) {
 			s.Containers = d.Containers
 		}
 
+		s.IgnoreCves = v.IgnoreCves
+		for _, cve := range d.IgnoreCves {
+			found := false
+			for _, c := range s.IgnoreCves {
+				if cve == c {
+					found = true
+					break
+				}
+			}
+			if !found {
+				s.IgnoreCves = append(s.IgnoreCves, cve)
+			}
+		}
+
 		s.Optional = v.Optional
 		for _, dkv := range d.Optional {
 			found := false
