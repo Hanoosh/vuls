@@ -227,6 +227,7 @@ func (l *base) convertToModel() (models.ScanResult, error) {
 	var scoredCves, unscoredCves, ignoredCves models.CveInfos
 	for _, p := range l.UnsecurePackages {
 		// ignoreCves
+		found := false
 		for _, icve := range l.getServerInfo().IgnoreCves {
 			if icve == p.CveDetail.CveID {
 				ignoredCves = append(ignoredCves, models.CveInfo{
@@ -234,8 +235,12 @@ func (l *base) convertToModel() (models.ScanResult, error) {
 					Packages:         p.Packs,
 					DistroAdvisories: p.DistroAdvisories,
 				})
-				continue
+				found = true
+				break
 			}
+		}
+		if found {
+			continue
 		}
 
 		// unscoredCves

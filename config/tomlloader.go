@@ -51,7 +51,6 @@ func (c TOMLLoader) Load(pathToToml, keyPass string) (err error) {
 
 	i := 0
 	for name, v := range conf.Servers {
-
 		if 0 < len(v.KeyPassword) {
 			log.Warn("[Deprecated] KEYPASSWORD IN CONFIG FILE ARE UNSECURE. REMOVE THEM IMMEDIATELY FOR A SECURITY REASONS. THEY WILL BE REMOVED IN A FUTURE RELEASE.")
 		}
